@@ -1,5 +1,6 @@
 const serverResponce = require("../config/responses");
 const prisma = require("../db_config/db_config");
+const getCategory = require("../utils/constant");
 
 module.exports = {
     async getAllBlogs(req, res) {
@@ -14,8 +15,10 @@ module.exports = {
 
     async addNewBlog(req, res) {
         try {
-            const { title, description, category } = req.body;
-            const project = await prisma.post.create({ data: { title, description, category } });
+            let { title, description, category, urls } = req.body;
+            let image = urls[0];
+            category = getCategory(category);
+            const project = await prisma.post.create({ data: { title, description, category, image } });
             serverResponce.successResponse(res, 'Project added successfully', project);
         } catch (error) {
             console.log(error);
@@ -69,22 +72,7 @@ module.exports = {
     async blogContentByCategory(req, res) {
         try {
             let { category } = req.query;
-            switch (category) {
-                case 'gadget':
-                    category = 'GADGET';
-                    break;
-                case 'tips':
-                    category = 'TIPS';
-                    break;
-                case 'ai_website':
-                    category = 'AI_WEBSITE';
-                    break;
-                case 'apps':
-                    category = 'APPS';
-                    break;
-                default:
-                    category = 'GADGET';
-            }
+            category = getCategory(category);
             const projects = await prisma.post.findMany({ where: { category: category.toUpperCase() } });
             serverResponce.successResponse(res, 'Project fetched successfully', projects);
         } catch (error) {
