@@ -14,5 +14,7 @@ router.get('/most_viewed_blogs', projectController.mostViewedBlogs);
 
 router.get('/most_recent_blogs', projectController.mostRecentBlogs);
 
+router.get('/blog_content_by_category', projectController.blogContentByCategory);
+
 module.exports = router;
 

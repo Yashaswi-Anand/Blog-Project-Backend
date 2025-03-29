@@ -18,7 +18,7 @@ app.use('/project', project_router);
 app.use('/user', user_router);
 
 app.get('/', (req, res) => {
-  res.send('Hello World');
+  res.send('Server is healthy!!!');
 });
 
 app.listen(PORT, () => {

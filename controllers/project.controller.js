@@ -25,7 +25,7 @@ module.exports = {
 
     async updateBlog(req, res) {
         try {
-            const post_id = req.params.id;  
+            const post_id = req.params.id;
             const { title, description, category } = req.body;
             const project = await prisma.post.update({ where: { id: post_id }, data: { title, description, category } });
             serverResponce.successResponse(res, 'Project updated successfully', project);
@@ -59,6 +59,33 @@ module.exports = {
     async mostRecentBlogs(req, res) {
         try {
             const projects = await prisma.$queryRaw`SELECT * FROM "Post" ORDER BY date DESC LIMIT 5;`;
+            serverResponce.successResponse(res, 'Project fetched successfully', projects);
+        } catch (error) {
+            console.log(error);
+            serverResponce.errorMysqlResponse(res, error, 'Internal Server Error');
+        }
+    },
+
+    async blogContentByCategory(req, res) {
+        try {
+            let { category } = req.query;
+            switch (category) {
+                case 'gadget':
+                    category = 'GADGET';
+                    break;
+                case 'tips':
+                    category = 'TIPS';
+                    break;
+                case 'ai_website':
+                    category = 'AI_WEBSITE';
+                    break;
+                case 'apps':
+                    category = 'APPS';
+                    break;
+                default:
+                    category = 'GADGET';
+            }
+            const projects = await prisma.post.findMany({ where: { category: category.toUpperCase() } });
             serverResponce.successResponse(res, 'Project fetched successfully', projects);
         } catch (error) {
             console.log(error);

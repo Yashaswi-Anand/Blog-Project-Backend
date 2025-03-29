@@ -11,7 +11,7 @@ module.exports = {
             });
 
             if (!user) {
-                return serverResponce.errorResponse(res, 'User not found', 404);
+                return serverResponce.errorResponse(res, 'User not found | Unable to login', 404);
             }
 
             if (user.password !== password) {
