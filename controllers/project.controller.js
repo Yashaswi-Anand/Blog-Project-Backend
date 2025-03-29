@@ -51,7 +51,7 @@ module.exports = {
 
     async mostViewedBlogs(req, res) {
         try {
-            const projects = await prisma.$queryRaw`SELECT * FROM "Post" ORDER BY views DESC LIMIT 5;`;
+            const projects = await prisma.$queryRaw`SELECT * FROM "Post" ORDER BY views DESC LIMIT 3;`;
             serverResponce.successResponse(res, 'Project fetched successfully', projects);
         } catch (error) {
             console.log(error);
@@ -61,7 +61,7 @@ module.exports = {
 
     async mostRecentBlogs(req, res) {
         try {
-            const projects = await prisma.$queryRaw`SELECT * FROM "Post" ORDER BY date DESC LIMIT 5;`;
+            const projects = await prisma.$queryRaw`SELECT * FROM "Post" ORDER BY date DESC LIMIT 3;`;
             serverResponce.successResponse(res, 'Project fetched successfully', projects);
         } catch (error) {
             console.log(error);
