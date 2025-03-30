@@ -5,7 +5,10 @@ const getCategory = require("../utils/constant");
 module.exports = {
     async getAllBlogs(req, res) {
         try {
-            const projects = await prisma.post.findMany();
+            const projects = await prisma.post.findMany({
+                orderBy: { date: 'desc' },
+                take: 6
+            });
             serverResponce.successResponse(res, 'All projects fetched successfully', projects);
         } catch (error) {
             console.log(error);
@@ -72,7 +75,10 @@ module.exports = {
         try {
             let { category } = req.query;
             category = getCategory(category);
-            const projects = await prisma.post.findMany({ where: { category: category.toUpperCase() } });
+            const projects = await prisma.post.findMany({
+                where: { category: category.toUpperCase() },
+                orderBy: { date: 'desc' }
+            });
             serverResponce.successResponse(res, 'Project fetched successfully', projects);
         } catch (error) {
             console.log(error);
