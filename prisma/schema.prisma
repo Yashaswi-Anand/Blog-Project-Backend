@@ -16,14 +16,15 @@ model User {
 }
 
 model Post {
-  id          Int      @id @default(autoincrement())
-  title       String   @db.VarChar(191)
-  description String
-  views       Int      @default(0)
-  image       String?
-  date        DateTime @default(now())
-  category    category @default(GADGET)
-  update_at   DateTime @updatedAt
+  id                Int      @id @default(autoincrement())
+  title             String   @db.VarChar(191)
+  short_description String?
+  description       String
+  views             Int      @default(0)
+  image             String?
+  date              DateTime @default(now())
+  category          category @default(GADGET)
+  update_at         DateTime @updatedAt
 }
 
 enum category {

@@ -28,7 +28,7 @@ module.exports = {
     async getAllUsers(req, res) {
         try {
             const users = await prisma.user.findMany({ where: { deleted: false } });
-            serverResponce.successResponse(res, 'Successfully Login', users);
+            serverResponce.successResponse(res, 'Successfully Fetched All Users', users);
         } catch (error) {
             console.log(error);
         }
