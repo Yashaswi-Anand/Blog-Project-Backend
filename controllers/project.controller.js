@@ -44,6 +44,7 @@ module.exports = {
         try {
             const post_id = req.params.id;
             const project = await prisma.post.findFirst({ where: { id: +post_id } });
+            await prisma.post.update({ where: { id: +post_id }, data: { views: project.views + 1 } });
             serverResponce.successResponse(res, 'Project fetched successfully', project);
         } catch (error) {
             console.log(error);
