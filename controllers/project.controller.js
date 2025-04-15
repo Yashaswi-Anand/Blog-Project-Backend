@@ -5,10 +5,11 @@ const getCategory = require("../utils/constant");
 module.exports = {
     async getAllBlogs(req, res) {
         try {
-            const projects = await prisma.post.findMany({
-                orderBy: { date: 'desc' },
-                take: 6
-            });
+            // const projects = await prisma.post.findMany({
+            //     orderBy: { date: 'desc' },
+            //     take: 6
+            // });
+            const projects = await prisma.$queryRaw`SELECT * FROM "Post" ORDER BY date DESC LIMIT 6`;
             serverResponce.successResponse(res, 'All projects fetched successfully', projects);
         } catch (error) {
             console.log(error);
