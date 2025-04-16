@@ -20,8 +20,11 @@ module.exports = {
     async addNewBlog(req, res) {
         try {
             let { title, short_description, description, category, link } = req.body;
+            // console.log(req.body, "****");
             category = getCategory(category);
-            const project = await prisma.post.create({ data: { title, short_description, description, category, image: link } });
+            const project = await prisma.post.create({ 
+                data: { title, short_description, description, category, image: link } 
+            });
             serverResponce.successResponse(res, 'Project added successfully', project);
         } catch (error) {
             console.log(error);
