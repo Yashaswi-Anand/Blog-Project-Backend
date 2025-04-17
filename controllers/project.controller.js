@@ -63,7 +63,7 @@ module.exports = {
 
     async mostRecentBlogs(req, res) {
         try {
-            const projects = await prisma.$queryRaw`SELECT * FROM "Post" ORDER BY date DESC LIMIT 3;`;
+            const projects = await prisma.$queryRaw`SELECT * FROM "Post" ORDER BY date DESC LIMIT 10;`;
             serverResponce.successResponse(res, 'Project fetched successfully', projects);
         } catch (error) {
             console.log(error);
