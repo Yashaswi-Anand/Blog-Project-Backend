@@ -25,19 +25,19 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-// SIgInt handler to gracefully shutdown the server
-process.on('SIGINT', () => {
-  console.log('Received SIGINT. Shutting down gracefully...');
-  server.close(() => {
-    console.log('Server shut down successfully.');
-    process.exit(0);
-  });
-});
-// SIgTerm handler to gracefully shutdown the server
-process.on('SIGTERM', () => {
-  console.log('Received SIGTERM. Shutting down gracefully...');
-  server.close(() => {
-    console.log('Server shut down successfully.');
-    process.exit(0);
-  });
-})
+// // SIgInt handler to gracefully shutdown the server
+// process.on('SIGINT', () => {
+//   console.log('Received SIGINT. Shutting down gracefully...');
+//   server.close(() => {
+//     console.log('Server shut down successfully.');
+//     process.exit(0);
+//   });
+// });
+// // SIgTerm handler to gracefully shutdown the server
+// process.on('SIGTERM', () => {
+//   console.log('Received SIGTERM. Shutting down gracefully...');
+//   server.close(() => {
+//     console.log('Server shut down successfully.');
+//     process.exit(0);
+//   });
+// })
