@@ -73,13 +73,16 @@ module.exports = {
 
     async blogContentByCategory(req, res) {
         try {
-            let { category } = req.query;
+            let { category, limit, page } = req.query;
             category = getCategory(category);
+            const total_length = await prisma.post.count({ where: { category: category.toUpperCase() } });
             const projects = await prisma.post.findMany({
                 where: { category: category.toUpperCase() },
-                orderBy: { date: 'desc' }
+                orderBy: { date: 'desc' },
+                skip: (+page - 1) * +limit,
+                take: +limit,
             });
-            serverResponce.successResponse(res, 'Project fetched successfully', projects);
+            serverResponce.successResponse(res, 'Project fetched successfully', {projects, total_length});
         } catch (error) {
             console.log(error);
             serverResponce.errorMysqlResponse(res, error, 'Internal Server Error');
