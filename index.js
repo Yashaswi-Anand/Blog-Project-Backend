@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const PORT = process.env.PORT || 8080;
 const app = express();
 const cors = require('cors');
@@ -9,7 +10,7 @@ const compression = require('compression');
 app.use(cors(
     {
         origin: '*',
-        credentials: true
+        // credentials: true
     }
 ));
 
